@@ -16,6 +16,6 @@ public class GetPolicyEventsQueryHandler {
     }
 
     public List<PolicyEvent> handle(GetPolicyEventsQuery query) {
-        return policyEventRepository.findByPolicyIdOrderByTimestampAsc(query.getPolicyId());
+        return policyEventRepository.findByPolicyIdOrderByTimestampAsc(query.policyId());
     }
 }

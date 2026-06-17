@@ -1,24 +1,14 @@
 package com.insurance.insurance_policy_api.command;
 
-import com.insurance.insurance_policy_api.entity.InsurancePolicy;
+import com.insurance.insurance_policy_api.enums.PolicyStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 
 import java.time.LocalDate;
 
-@Data
-public class CreatePolicyCommand {
-
-    @NotBlank
-    private String policyName;
-
-    @NotNull
-    private InsurancePolicy.PolicyStatus status;
-
-    @NotNull
-    private LocalDate coverageStartDate;
-
-    @NotNull
-    private LocalDate coverageEndDate;
-}
+public record CreatePolicyCommand(
+        @NotBlank String policyName,
+        @NotNull PolicyStatus status,
+        @NotNull LocalDate coverageStartDate,
+        @NotNull LocalDate coverageEndDate
+) {}

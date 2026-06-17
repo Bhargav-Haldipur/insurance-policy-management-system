@@ -1,6 +1,7 @@
 package com.insurance.insurance_policy_api.query;
 
 import com.insurance.insurance_policy_api.entity.InsurancePolicy;
+import com.insurance.insurance_policy_api.exception.PolicyNotFoundException;
 import com.insurance.insurance_policy_api.repository.InsurancePolicyRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ public class GetPolicyQueryHandler {
     }
 
     public InsurancePolicy handle(GetPolicyQuery query) {
-        return insurancePolicyRepository.findById(query.getId())
-                .orElseThrow(() -> new RuntimeException("Insurance policy not found with id: " + query.getId()));
+        return insurancePolicyRepository.findById(query.id())
+                .orElseThrow(() -> new PolicyNotFoundException(query.id()));
     }
 }

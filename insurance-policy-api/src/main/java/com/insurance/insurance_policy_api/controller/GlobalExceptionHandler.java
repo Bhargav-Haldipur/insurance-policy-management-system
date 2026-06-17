@@ -1,5 +1,7 @@
 package com.insurance.insurance_policy_api.controller;
 
+import com.insurance.insurance_policy_api.exception.PolicyNotFoundException;
+import com.insurance.insurance_policy_api.exception.PolicyValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -13,11 +15,17 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Map<String, String>> handleIllegalArgumentException(IllegalArgumentException exception) {
+    @ExceptionHandler(PolicyNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handlePolicyNotFoundException(PolicyNotFoundException exception) {
         Map<String, String> response = new LinkedHashMap<>();
         response.put("message", exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
 
+    @ExceptionHandler(PolicyValidationException.class)
+    public ResponseEntity<Map<String, String>> handlePolicyValidationException(PolicyValidationException exception) {
+        Map<String, String> response = new LinkedHashMap<>();
+        response.put("message", exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 

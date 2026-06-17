@@ -2,11 +2,15 @@ package com.insurance.insurance_policy_api.command;
 
 import com.insurance.insurance_policy_api.document.PolicyEvent;
 import com.insurance.insurance_policy_api.entity.InsurancePolicy;
+import com.insurance.insurance_policy_api.exception.PolicyNotFoundException;
+import com.insurance.insurance_policy_api.exception.PolicyValidationException;
 import com.insurance.insurance_policy_api.repository.InsurancePolicyRepository;
 import com.insurance.insurance_policy_api.repository.PolicyEventRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Service
 public class UpdatePolicyCommandHandler {
@@ -20,29 +24,34 @@ public class UpdatePolicyCommandHandler {
         this.policyEventRepository = policyEventRepository;
     }
 
+    @Transactional
     public InsurancePolicy handle(UpdatePolicyCommand command) {
-        if (command.getCoverageStartDate() != null
-                && command.getCoverageEndDate() != null
-                && !command.getCoverageEndDate().isAfter(command.getCoverageStartDate())) {
-            throw new IllegalArgumentException("Coverage end date must be after coverage start date");
+        if (command.coverageStartDate() != null
+                && command.coverageEndDate() != null
+                && !command.coverageEndDate().isAfter(command.coverageStartDate())) {
+            throw new PolicyValidationException("Coverage end date must be after coverage start date");
         }
 
-        InsurancePolicy insurancePolicy = insurancePolicyRepository.findById(command.getId())
-                .orElseThrow(() -> new RuntimeException("Insurance policy not found with id: " + command.getId()));
+        InsurancePolicy insurancePolicy = insurancePolicyRepository.findById(command.id())
+                .orElseThrow(() -> new PolicyNotFoundException(command.id()));
 
-        insurancePolicy.setPolicyName(command.getPolicyName());
-        insurancePolicy.setStatus(command.getStatus());
-        insurancePolicy.setCoverageStartDate(command.getCoverageStartDate());
-        insurancePolicy.setCoverageEndDate(command.getCoverageEndDate());
+        insurancePolicy.setPolicyName(command.policyName());
+        insurancePolicy.setStatus(command.status());
+        insurancePolicy.setCoverageStartDate(command.coverageStartDate());
+        insurancePolicy.setCoverageEndDate(command.coverageEndDate());
 
         InsurancePolicy updatedPolicy = insurancePolicyRepository.save(insurancePolicy);
 
         PolicyEvent policyEvent = new PolicyEvent();
         policyEvent.setEventType("POLICY_UPDATED");
         policyEvent.setPolicyId(updatedPolicy.getId());
-        policyEvent.setTimestamp(LocalDateTime.now());
+        policyEvent.setTimestamp(LocalDateTime.now(ZoneId.of("Asia/Kolkata")));
         policyEvent.setPayload(updatedPolicy.toString());
-        policyEventRepository.save(policyEvent);
+        try {
+            policyEventRepository.save(policyEvent);
+        } catch (Exception e) {
+            throw new RuntimeException("Event store write failed; rolling back policy save", e);
+        }
 
         return updatedPolicy;
     }
