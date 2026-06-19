@@ -4,6 +4,7 @@ import com.insurance.insurance_policy_api.exception.PolicyNotFoundException;
 import com.insurance.insurance_policy_api.exception.PolicyValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,6 +28,19 @@ public class GlobalExceptionHandler {
         Map<String, String> response = new LinkedHashMap<>();
         response.put("message", exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+
+    @ExceptionHandler(TransactionSystemException.class)
+    public ResponseEntity<?> handleTransactionSystemException(TransactionSystemException ex) {
+        Throwable cause = ex.getRootCause();
+        if (cause instanceof PolicyNotFoundException pnfe) {
+            return handlePolicyNotFoundException(pnfe);
+        }
+        if (cause instanceof PolicyValidationException pve) {
+            return handlePolicyValidationException(pve);
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("message", "An unexpected error occurred"));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
