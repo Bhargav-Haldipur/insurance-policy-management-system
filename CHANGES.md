@@ -4,6 +4,7 @@ All changes are in `insurance-policy-api/src/main/java/com/insurance/insurance_p
 
 ---
 
+
 ## Step 1 — Extract PolicyStatus enum
 
 **Added**
@@ -101,6 +102,7 @@ UI → Axios → Controller (RequestDTO) → Service → CommandHandler/QueryHan
 - `command/UpdatePolicyCommandHandler.java` — `IllegalArgumentException` → `PolicyValidationException`; `RuntimeException` ("not found") → `PolicyNotFoundException`
 - `query/GetPolicyQueryHandler.java` — `RuntimeException` ("not found") → `PolicyNotFoundException`
 
+ALL handlers now have try catch blocks as well 
 ---
 
 ## Step 8 — MySQL/MongoDB transactional consistency
