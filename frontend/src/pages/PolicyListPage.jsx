@@ -6,6 +6,11 @@ import {
   Button,
   CircularProgress,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Paper,
   Stack,
   Table,
@@ -16,13 +21,15 @@ import {
   TableRow,
   Typography,
 } from '@mui/material'
-import { getPolicies } from '../services/policy_Service'
+import { getPolicies, deletePolicy, getApiErrorMessage } from '../services/policy_Service'
 import { formatCoverageDate, formatTimestamp } from '../utils/dateFormat'
 
 function PolicyListPage() {
   const [policies, setPolicies] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
+  const [pendingDeletePolicy, setPendingDeletePolicy] = useState(null)
+  const [isDeleting, setIsDeleting] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -39,6 +46,28 @@ function PolicyListPage() {
 
     fetchPolicies()
   }, [])
+
+  const handleDeleteClick = (policy) => {
+    setPendingDeletePolicy({ id: policy.id, policyName: policy.policyName })
+  }
+
+  const handleDeleteCancel = () => {
+    setPendingDeletePolicy(null)
+  }
+
+  const handleDeleteConfirm = async () => {
+    setIsDeleting(true)
+    try {
+      await deletePolicy(pendingDeletePolicy.id)
+      setPolicies((prev) => prev.filter((p) => p.id !== pendingDeletePolicy.id))
+      setPendingDeletePolicy(null)
+    } catch (err) {
+      setError(getApiErrorMessage(err, 'Failed to delete policy.'))
+      setPendingDeletePolicy(null)
+    } finally {
+      setIsDeleting(false)
+    }
+  }
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -111,40 +140,31 @@ function PolicyListPage() {
                     </TableCell>
 
                     <TableCell align="right">
-                      <Stack
-                        direction="column"
-                        spacing={1}
-                        justifyContent="flex-end"
-                      >
+                      <Stack direction="row" spacing={0.5} justifyContent="flex-end" flexWrap="wrap">
                         <Button
-                          variant="outlined"
                           size="small"
-                          onClick={() =>
-                            navigate(`/policies/view/${policy.id}`)
-                          }
+                          onClick={() => navigate(`/policies/view/${policy.id}`)}
                         >
-                          View Policy
+                          View
                         </Button>
-
                         <Button
-                          variant="contained"
                           size="small"
-                          onClick={() =>
-                            navigate(`/policies/edit/${policy.id}`)
-                          }
+                          onClick={() => navigate(`/policies/edit/${policy.id}`)}
                         >
-                          Edit Policy
+                          Edit
                         </Button>
-
                         <Button
-                          variant="outlined"
-                          color="secondary"
                           size="small"
-                          onClick={() =>
-                            navigate(`/policies/${policy.id}/events`)
-                          }
+                          onClick={() => navigate(`/policies/${policy.id}/events`)}
                         >
-                          View Events
+                          Events
+                        </Button>
+                        <Button
+                          size="small"
+                          color="error"
+                          onClick={() => handleDeleteClick(policy)}
+                        >
+                          Delete
                         </Button>
                       </Stack>
                     </TableCell>
@@ -154,6 +174,30 @@ function PolicyListPage() {
           </Table>
         </TableContainer>
       </Stack>
+
+      <Dialog open={Boolean(pendingDeletePolicy)} onClose={handleDeleteCancel}>
+        <DialogTitle>Delete Policy</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete policy{' '}
+            <strong>{pendingDeletePolicy?.policyName}</strong> (ID:{' '}
+            {pendingDeletePolicy?.id})? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteCancel} disabled={isDeleting}>
+            Cancel
+          </Button>
+          <Button
+            onClick={handleDeleteConfirm}
+            color="error"
+            variant="contained"
+            disabled={isDeleting}
+          >
+            {isDeleting ? 'Deleting...' : 'Delete'}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   )
 }

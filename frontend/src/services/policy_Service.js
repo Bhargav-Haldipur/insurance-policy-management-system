@@ -23,6 +23,10 @@ export const updatePolicy = async (id, policy) => {
   return response.data
 }
 
+export const deletePolicy = async (id) => {
+  await axios.delete(`/api/policies/${id}`)
+}
+
 export const getPolicyEvents = async (policyId) => {
   const response = await axios.get(
     `/api/events/${policyId}`

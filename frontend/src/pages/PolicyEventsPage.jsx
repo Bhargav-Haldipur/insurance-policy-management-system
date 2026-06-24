@@ -34,14 +34,8 @@ function PolicyEventsPage() {
     const fetchEvents = async () => {
       try {
         const data = await getPolicyEvents(id)
-
-        console.log('EVENT RESPONSE:', data)
-        console.log('IS ARRAY:', Array.isArray(data))
-
         setEvents(Array.isArray(data) ? data : [])
       } catch (err) {
-        console.error('EVENT ERROR:', err)
-
         setError(
           getApiErrorMessage(
             err,

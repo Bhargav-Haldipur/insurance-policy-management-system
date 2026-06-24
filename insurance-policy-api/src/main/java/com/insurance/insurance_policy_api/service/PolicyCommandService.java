@@ -2,6 +2,8 @@ package com.insurance.insurance_policy_api.service;
 
 import com.insurance.insurance_policy_api.command.CreatePolicyCommand;
 import com.insurance.insurance_policy_api.command.CreatePolicyCommandHandler;
+import com.insurance.insurance_policy_api.command.DeletePolicyCommand;
+import com.insurance.insurance_policy_api.command.DeletePolicyCommandHandler;
 import com.insurance.insurance_policy_api.command.UpdatePolicyCommand;
 import com.insurance.insurance_policy_api.command.UpdatePolicyCommandHandler;
 import com.insurance.insurance_policy_api.dto.CreatePolicyRequest;
@@ -15,11 +17,14 @@ public class PolicyCommandService {
 
     private final CreatePolicyCommandHandler createPolicyCommandHandler;
     private final UpdatePolicyCommandHandler updatePolicyCommandHandler;
+    private final DeletePolicyCommandHandler deletePolicyCommandHandler;
 
     public PolicyCommandService(CreatePolicyCommandHandler createPolicyCommandHandler,
-                                UpdatePolicyCommandHandler updatePolicyCommandHandler) {
+                                UpdatePolicyCommandHandler updatePolicyCommandHandler,
+                                DeletePolicyCommandHandler deletePolicyCommandHandler) {
         this.createPolicyCommandHandler = createPolicyCommandHandler;
         this.updatePolicyCommandHandler = updatePolicyCommandHandler;
+        this.deletePolicyCommandHandler = deletePolicyCommandHandler;
     }
 
     public PolicyResponse createPolicy(CreatePolicyRequest request) {
@@ -41,6 +46,10 @@ public class PolicyCommandService {
                 request.coverageEndDate()
         );
         return toResponse(updatePolicyCommandHandler.handle(command));
+    }
+
+    public void deletePolicy(Long id) {
+        deletePolicyCommandHandler.handle(new DeletePolicyCommand(id));
     }
 
     private PolicyResponse toResponse(InsurancePolicy policy) {

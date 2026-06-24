@@ -10,4 +10,6 @@ public interface PolicyEventRepository extends MongoRepository<PolicyEvent, Stri
     List<PolicyEvent> findByPolicyId(Long policyId);
 
     List<PolicyEvent> findByPolicyIdOrderByTimestampAsc(Long policyId);
+
+    void deleteByPolicyId(Long policyId);
 }
