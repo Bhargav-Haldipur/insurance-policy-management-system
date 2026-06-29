@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "insurance-policy-api": {
+      "command": "python",
+      "args": ["/path/to/insurance-mcp/server.py"],
+      "description": "Tools to manage insurance policies via the Spring Boot REST API"
+    }
+  }
+}
