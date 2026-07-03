@@ -153,5 +153,18 @@ def get_policy_events(policy_id: int) -> str:
 # Claude Code (or any MCP client) launches this as a subprocess and
 # communicates via stdin/stdout using the MCP protocol (JSON-RPC 2.0).
 
+
+@mcp.tool()
+def delete_policy(policy_id: int) -> str:
+    """
+    Delete an insurance policy by its ID.
+    This action is irreversible.
+
+    Args:
+        policy_id: The numeric ID of the policy to delete.
+    """
+    return _request("DELETE", f"/policies/{policy_id}")
 if __name__ == "__main__":
+
+
     mcp.run()
