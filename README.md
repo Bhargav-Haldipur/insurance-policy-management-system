@@ -82,11 +82,11 @@ Every create, update, and delete operation appends an event to MongoDB. Both wri
 
 ### PolicyEvent (MongoDB audit document)
 
-Every write operation (create / update / delete) appends an immutable event:
+Write operations (create / update / delete) and the expiry-warning scheduler append immutable events:
 
 | Field | Values |
 |---|---|
-| `eventType` | `POLICY_CREATED`, `POLICY_UPDATED` |
+| `eventType` | `POLICY_CREATED`, `POLICY_UPDATED`, `EXPIRY_WARNING` |
 | `payload` | String representation of the policy at the time of the event |
 
 ---
@@ -131,7 +131,10 @@ insurance-policy-management-system/
 │       │   ├── PolicyCommandController.java
 │       │   ├── PolicyQueryController.java
 │       │   ├── EventQueryController.java
+│       │   ├── ExpiryAlertController.java
 │       │   └── GlobalExceptionHandler.java
+│       ├── scheduler/
+│       │   └── ExpiryAlertScheduler.java  # daily 09:00 IST expiry-warning job
 │       ├── dto/
 │       │   ├── CreatePolicyRequest.java
 │       │   ├── UpdatePolicyRequest.java
@@ -216,6 +219,7 @@ npm run lint       # ESLint check
 | `PUT` | `/api/policies/{id}` | Update a policy |
 | `DELETE` | `/api/policies/{id}` | Delete a policy and its audit events |
 | `GET` | `/api/events/{policyId}` | Get the audit event history for a policy |
+| `POST` | `/api/admin/trigger-expiry-check` | Manually trigger the expiry-warning scheduler |
 
 ### Request Body (Create / Update)
 

@@ -1,1 +1,0 @@
-Make the frontend look more minimalistic

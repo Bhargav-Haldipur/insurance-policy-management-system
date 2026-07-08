@@ -4,6 +4,7 @@ import {
   Alert,
   Box,
   Button,
+  Chip,
   CircularProgress,
   Container,
   Dialog,
@@ -21,10 +22,19 @@ import {
   TableRow,
   Typography,
 } from '@mui/material'
+import dayjs from 'dayjs'
 import { getPolicies, deletePolicy, getApiErrorMessage } from '../services/policy_Service'
 import { formatCoverageDate, formatTimestamp } from '../utils/dateFormat'
 
 const TOTAL_COLS = 10
+
+const EXPIRY_WARN_STATUSES = new Set(['ACTIVE', 'PENDING', 'SUSPENDED'])
+
+function isExpiringSoon(coverageEndDate, status) {
+  if (!coverageEndDate || !EXPIRY_WARN_STATUSES.has(status)) return false
+  const end = dayjs(coverageEndDate)
+  return end.isValid() && end.isAfter(dayjs()) && end.isBefore(dayjs().add(31, 'day'))
+}
 
 function PolicyListPage() {
   const [policies, setPolicies] = useState([])
@@ -136,7 +146,12 @@ function PolicyListPage() {
                       {formatCoverageDate(policy.coverageStartDate)}
                     </TableCell>
                     <TableCell>
-                      {formatCoverageDate(policy.coverageEndDate)}
+                      <Stack direction="row" spacing={1} alignItems="center">
+                        <span>{formatCoverageDate(policy.coverageEndDate)}</span>
+                        {isExpiringSoon(policy.coverageEndDate, policy.status) && (
+                          <Chip label="Expiring Soon" color="warning" size="small" />
+                        )}
+                      </Stack>
                     </TableCell>
                     <TableCell>
                       {formatTimestamp(policy.createdAt)}
