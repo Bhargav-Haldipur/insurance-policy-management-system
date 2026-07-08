@@ -21,9 +21,19 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { createPolicy, getApiErrorMessage } from '../services/policy_Service'
 import { toApiDate } from '../utils/dateFormat'
 
+const POLICY_STATUSES = ['PENDING', 'ACTIVE', 'INACTIVE', 'EXPIRED', 'CANCELLED', 'SUSPENDED']
+const POLICY_TYPES = ['HEALTH', 'AUTO', 'LIFE', 'HOME', 'PROPERTY']
+
 const initialPolicy = {
   policyName: '',
   status: 'ACTIVE',
+  policyType: '',
+  holderName: '',
+  holderEmail: '',
+  holderPhone: '',
+  premiumAmount: '',
+  coverageAmount: '',
+  deductible: '',
   coverageStartDate: '',
   coverageEndDate: '',
 }
@@ -54,8 +64,15 @@ function CreatePolicyPage() {
     setIsSubmitting(true)
     setError('')
 
+    const payload = {
+      ...policy,
+      premiumAmount: policy.premiumAmount !== '' ? Number(policy.premiumAmount) : null,
+      coverageAmount: policy.coverageAmount !== '' ? Number(policy.coverageAmount) : null,
+      deductible: policy.deductible !== '' ? Number(policy.deductible) : null,
+    }
+
     try {
-      await createPolicy(policy)
+      await createPolicy(payload)
       navigate('/policies')
     } catch (err) {
       setError(getApiErrorMessage(err, 'Unable to create policy.'))
@@ -85,6 +102,21 @@ function CreatePolicyPage() {
           />
 
           <FormControl fullWidth required>
+            <InputLabel id="create-policy-type-label">Policy Type</InputLabel>
+            <Select
+              labelId="create-policy-type-label"
+              label="Policy Type"
+              name="policyType"
+              value={policy.policyType}
+              onChange={handleChange}
+            >
+              {POLICY_TYPES.map((t) => (
+                <MenuItem key={t} value={t}>{t}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl fullWidth required>
             <InputLabel id="create-policy-status-label">Status</InputLabel>
             <Select
               labelId="create-policy-status-label"
@@ -93,10 +125,70 @@ function CreatePolicyPage() {
               value={policy.status}
               onChange={handleChange}
             >
-              <MenuItem value="ACTIVE">ACTIVE</MenuItem>
-              <MenuItem value="INACTIVE">INACTIVE</MenuItem>
+              {POLICY_STATUSES.map((s) => (
+                <MenuItem key={s} value={s}>{s}</MenuItem>
+              ))}
             </Select>
           </FormControl>
+
+          <TextField
+            label="Holder Name"
+            name="holderName"
+            value={policy.holderName}
+            onChange={handleChange}
+            required
+            fullWidth
+          />
+
+          <TextField
+            label="Holder Email"
+            name="holderEmail"
+            type="email"
+            value={policy.holderEmail}
+            onChange={handleChange}
+            required
+            fullWidth
+          />
+
+          <TextField
+            label="Holder Phone (optional)"
+            name="holderPhone"
+            value={policy.holderPhone}
+            onChange={handleChange}
+            fullWidth
+          />
+
+          <TextField
+            label="Premium Amount"
+            name="premiumAmount"
+            type="number"
+            value={policy.premiumAmount}
+            onChange={handleChange}
+            required
+            fullWidth
+            slotProps={{ htmlInput: { min: 0.01, step: '0.01' } }}
+          />
+
+          <TextField
+            label="Coverage Amount"
+            name="coverageAmount"
+            type="number"
+            value={policy.coverageAmount}
+            onChange={handleChange}
+            required
+            fullWidth
+            slotProps={{ htmlInput: { min: 0.01, step: '0.01' } }}
+          />
+
+          <TextField
+            label="Deductible (optional)"
+            name="deductible"
+            type="number"
+            value={policy.deductible}
+            onChange={handleChange}
+            fullWidth
+            slotProps={{ htmlInput: { min: 0, step: '0.01' } }}
+          />
 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker

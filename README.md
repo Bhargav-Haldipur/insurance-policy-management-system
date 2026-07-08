@@ -59,6 +59,38 @@ Every create, update, and delete operation appends an event to MongoDB. Both wri
 
 ---
 
+## Data Model
+
+### InsurancePolicy
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `id` | `Long` | auto | Primary key |
+| `policyName` | `String` | Yes | |
+| `status` | `PolicyStatus` | Yes | `PENDING`, `ACTIVE`, `INACTIVE`, `EXPIRED`, `CANCELLED`, `SUSPENDED` |
+| `policyType` | `PolicyType` | Yes | `HEALTH`, `AUTO`, `LIFE`, `HOME`, `PROPERTY` |
+| `holderName` | `String` | Yes | Full name of the insured |
+| `holderEmail` | `String` | Yes | Must be a valid email address |
+| `holderPhone` | `String` | No | |
+| `premiumAmount` | `BigDecimal` | Yes | Must be > 0 |
+| `coverageAmount` | `BigDecimal` | Yes | Must be > 0 |
+| `deductible` | `BigDecimal` | No | Must be ≥ 0 if provided |
+| `coverageStartDate` | `LocalDate` | Yes | |
+| `coverageEndDate` | `LocalDate` | Yes | Must be after `coverageStartDate` |
+| `createdAt` | `LocalDateTime` | auto | Set on persist (IST) |
+| `updatedAt` | `LocalDateTime` | auto | Set on update (IST) |
+
+### PolicyEvent (MongoDB audit document)
+
+Every write operation (create / update / delete) appends an immutable event:
+
+| Field | Values |
+|---|---|
+| `eventType` | `POLICY_CREATED`, `POLICY_UPDATED` |
+| `payload` | String representation of the policy at the time of the event |
+
+---
+
 ## Tech Stack
 
 | Layer | Technology |
@@ -107,7 +139,9 @@ insurance-policy-management-system/
 │       │   └── PolicyEventResponse.java
 │       ├── entity/InsurancePolicy.java
 │       ├── document/PolicyEvent.java
-│       ├── enums/PolicyStatus.java
+│       ├── enums/
+│       │   ├── PolicyStatus.java          # PENDING, ACTIVE, INACTIVE, EXPIRED, CANCELLED, SUSPENDED
+│       │   └── PolicyType.java            # HEALTH, AUTO, LIFE, HOME, PROPERTY
 │       ├── exception/
 │       │   ├── PolicyNotFoundException.java
 │       │   └── PolicyValidationException.java
@@ -183,11 +217,32 @@ npm run lint       # ESLint check
 | `DELETE` | `/api/policies/{id}` | Delete a policy and its audit events |
 | `GET` | `/api/events/{policyId}` | Get the audit event history for a policy |
 
+### Request Body (Create / Update)
+
+```json
+{
+  "policyName": "John's Auto Policy",
+  "status": "ACTIVE",
+  "policyType": "AUTO",
+  "holderName": "John Doe",
+  "holderEmail": "john.doe@example.com",
+  "holderPhone": "+91-9876543210",
+  "premiumAmount": 1200.00,
+  "coverageAmount": 500000.00,
+  "deductible": 5000.00,
+  "coverageStartDate": "2026-01-01",
+  "coverageEndDate": "2027-01-01"
+}
+```
+
+`holderPhone` and `deductible` are optional; all other fields are required.
+
 ### Error Responses
 
 | Status | Thrown by |
 |---|---|
-| `400 Bad Request` | `PolicyValidationException` (e.g. invalid date range) |
+| `400 Bad Request` | Bean Validation failure (missing required field, invalid email, non-positive amount, etc.) |
+| `400 Bad Request` | `PolicyValidationException` (coverage end date not after start date) |
 | `404 Not Found` | `PolicyNotFoundException` (policy ID does not exist) |
 
 Full interactive docs available at `/swagger-ui.html` when the backend is running.
@@ -244,8 +299,8 @@ Update `.mcp.json` in the project root with the absolute path to `server.py`:
 ### Example prompts
 
 - "List all insurance policies"
-- "Create a health policy for John Doe, $50,000 coverage, $200/month premium, starting 2025-01-01"
-- "Update policy 3 — change the status to INACTIVE"
+- "Create a HEALTH policy for Jane Smith (jane@example.com), ₹500,000 coverage, ₹1,200 monthly premium, ₹5,000 deductible, starting 2026-01-01 and ending 2027-01-01"
+- "Update policy 3 — change the status to SUSPENDED"
 - "Delete policy 5"
 - "Show the audit history for policy 3"
 

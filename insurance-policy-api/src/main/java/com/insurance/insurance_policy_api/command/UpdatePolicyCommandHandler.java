@@ -37,6 +37,13 @@ public class UpdatePolicyCommandHandler {
 
         insurancePolicy.setPolicyName(command.policyName());
         insurancePolicy.setStatus(command.status());
+        insurancePolicy.setPolicyType(command.policyType());
+        insurancePolicy.setHolderName(command.holderName());
+        insurancePolicy.setHolderEmail(command.holderEmail());
+        insurancePolicy.setHolderPhone(command.holderPhone());
+        insurancePolicy.setPremiumAmount(command.premiumAmount());
+        insurancePolicy.setCoverageAmount(command.coverageAmount());
+        insurancePolicy.setDeductible(command.deductible());
         insurancePolicy.setCoverageStartDate(command.coverageStartDate());
         insurancePolicy.setCoverageEndDate(command.coverageEndDate());
 

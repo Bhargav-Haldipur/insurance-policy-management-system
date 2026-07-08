@@ -31,6 +31,13 @@ public class PolicyCommandService {
         CreatePolicyCommand command = new CreatePolicyCommand(
                 request.policyName(),
                 request.status(),
+                request.policyType(),
+                request.holderName(),
+                request.holderEmail(),
+                request.holderPhone(),
+                request.premiumAmount(),
+                request.coverageAmount(),
+                request.deductible(),
                 request.coverageStartDate(),
                 request.coverageEndDate()
         );
@@ -42,6 +49,13 @@ public class PolicyCommandService {
                 id,
                 request.policyName(),
                 request.status(),
+                request.policyType(),
+                request.holderName(),
+                request.holderEmail(),
+                request.holderPhone(),
+                request.premiumAmount(),
+                request.coverageAmount(),
+                request.deductible(),
                 request.coverageStartDate(),
                 request.coverageEndDate()
         );
@@ -57,6 +71,13 @@ public class PolicyCommandService {
                 policy.getId(),
                 policy.getPolicyName(),
                 policy.getStatus(),
+                policy.getPolicyType(),
+                policy.getHolderName(),
+                policy.getHolderEmail(),
+                policy.getHolderPhone(),
+                policy.getPremiumAmount(),
+                policy.getCoverageAmount(),
+                policy.getDeductible(),
                 policy.getCoverageStartDate(),
                 policy.getCoverageEndDate(),
                 policy.getCreatedAt(),

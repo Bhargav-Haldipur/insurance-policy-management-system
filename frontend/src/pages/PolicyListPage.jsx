@@ -24,6 +24,8 @@ import {
 import { getPolicies, deletePolicy, getApiErrorMessage } from '../services/policy_Service'
 import { formatCoverageDate, formatTimestamp } from '../utils/dateFormat'
 
+const TOTAL_COLS = 10
+
 function PolicyListPage() {
   const [policies, setPolicies] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -70,7 +72,7 @@ function PolicyListPage() {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
+    <Container maxWidth="xl" sx={{ py: 4 }}>
       <Stack spacing={3}>
         <Box>
           <Typography component="h1" variant="h4" fontWeight={600}>
@@ -94,9 +96,11 @@ function PolicyListPage() {
               <TableRow>
                 <TableCell>ID</TableCell>
                 <TableCell>Policy Name</TableCell>
+                <TableCell>Type</TableCell>
+                <TableCell>Holder Name</TableCell>
                 <TableCell>Status</TableCell>
-                <TableCell>Coverage Start Date</TableCell>
-                <TableCell>Coverage End Date</TableCell>
+                <TableCell>Coverage Start</TableCell>
+                <TableCell>Coverage End</TableCell>
                 <TableCell>Created At</TableCell>
                 <TableCell>Updated At</TableCell>
                 <TableCell align="right">Actions</TableCell>
@@ -106,7 +110,7 @@ function PolicyListPage() {
             <TableBody>
               {isLoading && (
                 <TableRow>
-                  <TableCell colSpan={8} align="center">
+                  <TableCell colSpan={TOTAL_COLS} align="center">
                     <CircularProgress size={28} />
                   </TableCell>
                 </TableRow>
@@ -114,7 +118,7 @@ function PolicyListPage() {
 
               {!isLoading && policies.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={8} align="center">
+                  <TableCell colSpan={TOTAL_COLS} align="center">
                     No policies found.
                   </TableCell>
                 </TableRow>
@@ -125,6 +129,8 @@ function PolicyListPage() {
                   <TableRow key={policy.id}>
                     <TableCell>{policy.id}</TableCell>
                     <TableCell>{policy.policyName}</TableCell>
+                    <TableCell>{policy.policyType ?? '—'}</TableCell>
+                    <TableCell>{policy.holderName ?? '—'}</TableCell>
                     <TableCell>{policy.status}</TableCell>
                     <TableCell>
                       {formatCoverageDate(policy.coverageStartDate)}
@@ -140,7 +146,7 @@ function PolicyListPage() {
                     </TableCell>
 
                     <TableCell align="right">
-                      <Stack direction="row" spacing={0.5} justifyContent="flex-end" flexWrap="wrap">
+                      <Stack direction="row" spacing={0.5} sx={{ justifyContent: 'flex-end', flexWrap: 'wrap' }}>
                         <Button
                           size="small"
                           onClick={() => navigate(`/policies/view/${policy.id}`)}

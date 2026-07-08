@@ -1,9 +1,11 @@
 package com.insurance.insurance_policy_api.entity;
 
 import com.insurance.insurance_policy_api.enums.PolicyStatus;
+import com.insurance.insurance_policy_api.enums.PolicyType;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -20,7 +22,24 @@ public class InsurancePolicy {
     private String policyName;
 
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(50)")
     private PolicyStatus status;
+
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(50)")
+    private PolicyType policyType;
+
+    private String holderName;
+
+    private String holderEmail;
+
+    private String holderPhone;
+
+    private BigDecimal premiumAmount;
+
+    private BigDecimal coverageAmount;
+
+    private BigDecimal deductible;
 
     private LocalDate coverageStartDate;
 

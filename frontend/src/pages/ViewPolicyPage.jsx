@@ -15,6 +15,11 @@ import {
 import { getPolicy } from '../services/policy_Service'
 import { formatCoverageDate, formatTimestamp } from '../utils/dateFormat'
 
+function formatAmount(value) {
+  if (value == null) return '—'
+  return `₹${Number(value).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+}
+
 function ViewPolicyPage() {
   const [policy, setPolicy] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -41,7 +46,14 @@ function ViewPolicyPage() {
     ? [
         ['ID', policy.id],
         ['Policy Name', policy.policyName],
+        ['Policy Type', policy.policyType ?? '—'],
         ['Status', policy.status],
+        ['Holder Name', policy.holderName ?? '—'],
+        ['Holder Email', policy.holderEmail ?? '—'],
+        ['Holder Phone', policy.holderPhone ?? '—'],
+        ['Premium Amount', formatAmount(policy.premiumAmount)],
+        ['Coverage Amount', formatAmount(policy.coverageAmount)],
+        ['Deductible', formatAmount(policy.deductible)],
         ['Coverage Start Date', formatCoverageDate(policy.coverageStartDate)],
         ['Coverage End Date', formatCoverageDate(policy.coverageEndDate)],
         ['Created At', formatTimestamp(policy.createdAt)],
@@ -79,7 +91,7 @@ function ViewPolicyPage() {
                     }}
                   >
                     <Typography color="text.secondary">{label}</Typography>
-                    <Typography>{value || '-'}</Typography>
+                    <Typography>{value ?? '—'}</Typography>
                   </Box>
                 ))}
               </Stack>

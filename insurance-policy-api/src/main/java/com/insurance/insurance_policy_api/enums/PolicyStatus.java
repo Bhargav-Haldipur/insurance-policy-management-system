@@ -1,6 +1,10 @@
 package com.insurance.insurance_policy_api.enums;
 
 public enum PolicyStatus {
+    PENDING,
     ACTIVE,
-    INACTIVE
+    INACTIVE,
+    EXPIRED,
+    CANCELLED,
+    SUSPENDED
 }
