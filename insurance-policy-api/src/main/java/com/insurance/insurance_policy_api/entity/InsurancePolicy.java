@@ -49,6 +49,10 @@ public class InsurancePolicy {
 
     private LocalDateTime updatedAt;
 
+    private String riskScore;
+
+    private String riskReason;
+
     @PrePersist
     public void prePersist() {
         createdAt = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));

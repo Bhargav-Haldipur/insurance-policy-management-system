@@ -6,6 +6,7 @@ import {
   Button,
   Card,
   CardContent,
+  Chip,
   CircularProgress,
   Container,
   Divider,
@@ -14,6 +15,12 @@ import {
 } from '@mui/material'
 import { getPolicy } from '../services/policy_Service'
 import { formatCoverageDate, formatTimestamp } from '../utils/dateFormat'
+
+function riskChipColor(score) {
+  if (score === 'HIGH') return 'error'
+  if (score === 'LOW') return 'success'
+  return 'warning'
+}
 
 function formatAmount(value) {
   if (value == null) return '—'
@@ -95,6 +102,20 @@ function ViewPolicyPage() {
                   </Box>
                 ))}
               </Stack>
+            )}
+            {policy?.riskScore && (
+              <>
+                <Divider sx={{ mt: 1 }} />
+                <Box sx={{ pt: 2 }}>
+                  <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                    AI Risk Assessment
+                  </Typography>
+                  <Stack direction="row" spacing={2} alignItems="flex-start">
+                    <Chip label={policy.riskScore} color={riskChipColor(policy.riskScore)} size="small" />
+                    <Typography variant="body2">{policy.riskReason}</Typography>
+                  </Stack>
+                </Box>
+              </>
             )}
           </CardContent>
         </Card>

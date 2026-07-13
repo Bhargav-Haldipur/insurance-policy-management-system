@@ -30,6 +30,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: docker
       TZ: Asia/Kolkata
+      GROQ_API_KEY: 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
     depends_on:
       - mysql
       - mongo

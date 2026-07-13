@@ -77,6 +77,8 @@ Every create, update, and delete operation appends an event to MongoDB. Both wri
 | `deductible` | `BigDecimal` | No | Must be ≥ 0 if provided |
 | `coverageStartDate` | `LocalDate` | Yes | |
 | `coverageEndDate` | `LocalDate` | Yes | Must be after `coverageStartDate` |
+| `riskScore` | `String` | auto | `LOW`, `MEDIUM`, or `HIGH` — set by AI on create; re-scored on update when policyType, coverageAmount, deductible, or coverage dates change |
+| `riskReason` | `String` | auto | One-sentence AI-generated explanation for the score |
 | `createdAt` | `LocalDateTime` | auto | Set on persist (IST) |
 | `updatedAt` | `LocalDateTime` | auto | Set on update (IST) |
 
@@ -95,7 +97,7 @@ Write operations (create / update / delete) and the expiry-warning scheduler app
 
 | Layer | Technology |
 |---|---|
-| Backend | Java 21, Spring Boot 3.5, Spring Data JPA, Spring Data MongoDB |
+| Backend | Java 21, Spring Boot 3.5, Spring Data JPA, Spring Data MongoDB, Spring AI 1.0.0 |
 | Frontend | React 19, Vite, Material-UI (MUI) v9, React Router v7, Axios |
 | Databases | MySQL 8, MongoDB 8 |
 | API Docs | SpringDoc OpenAPI (Swagger UI) |
@@ -126,7 +128,8 @@ insurance-policy-management-system/
 │       │   └── GetPolicyEventsQuery.java / Handler
 │       ├── service/
 │       │   ├── PolicyCommandService.java
-│       │   └── PolicyQueryService.java
+│       │   ├── PolicyQueryService.java
+│       │   └── AiService.java             # Spring AI / Groq: risk scoring + summary generation
 │       ├── controller/
 │       │   ├── PolicyCommandController.java
 │       │   ├── PolicyQueryController.java
@@ -138,8 +141,9 @@ insurance-policy-management-system/
 │       ├── dto/
 │       │   ├── CreatePolicyRequest.java
 │       │   ├── UpdatePolicyRequest.java
-│       │   ├── PolicyResponse.java
-│       │   └── PolicyEventResponse.java
+│       │   ├── PolicyResponse.java        # includes riskScore, riskReason
+│       │   ├── PolicyEventResponse.java
+│       │   └── PolicySummaryResponse.java
 │       ├── entity/InsurancePolicy.java
 │       ├── document/PolicyEvent.java
 │       ├── enums/
@@ -213,9 +217,10 @@ npm run lint       # ESLint check
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `POST` | `/api/policies` | Create a new policy |
+| `POST` | `/api/policies` | Create a new policy (AI risk scoring runs synchronously) |
 | `GET` | `/api/policies` | List all policies |
 | `GET` | `/api/policies/{id}` | Get a policy by ID |
+| `GET` | `/api/policies/{id}/summary` | AI-generated plain-English summary of the policy's event history |
 | `PUT` | `/api/policies/{id}` | Update a policy |
 | `DELETE` | `/api/policies/{id}` | Delete a policy and its audit events |
 | `GET` | `/api/events/{policyId}` | Get the audit event history for a policy |
@@ -327,6 +332,13 @@ All timestamps are stored and served in **Asia/Kolkata (IST)**. This is configur
 - `CreatePolicyCommandHandler.java` / `UpdatePolicyCommandHandler.java` — event timestamps use the same zone
 - `application.properties` / `application-docker.properties` — `spring.jpa.properties.hibernate.jdbc.time_zone=Asia/Kolkata`
 - `docker-compose.yml` — `TZ: Asia/Kolkata` on the backend service
+
+### Environment Variables
+
+| Variable | Required | Description |
+|---|---|---|
+| `GROQ_API_KEY` | For AI features | Groq API key used by Spring AI for risk scoring and policy summary. Obtain a free key at [groq.com](https://groq.com). Set in `docker-compose.yml` under `backend.environment`. Omitting it is safe — the app starts normally but risk scoring falls back to `MEDIUM`. |
+| `SPRING_PROFILES_ACTIVE` | Docker only | Set to `docker` in `docker-compose.yml` to activate `application-docker.properties`. |
 
 ### Credentials (local development)
 

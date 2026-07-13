@@ -19,4 +19,4 @@ public record CreatePolicyCommand(
         @PositiveOrZero BigDecimal deductible,
         @NotNull LocalDate coverageStartDate,
         @NotNull LocalDate coverageEndDate
-) {}
+) implements PolicyRiskInputs {}

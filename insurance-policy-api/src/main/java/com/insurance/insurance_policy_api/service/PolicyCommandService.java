@@ -81,7 +81,9 @@ public class PolicyCommandService {
                 policy.getCoverageStartDate(),
                 policy.getCoverageEndDate(),
                 policy.getCreatedAt(),
-                policy.getUpdatedAt()
+                policy.getUpdatedAt(),
+                policy.getRiskScore(),
+                policy.getRiskReason()
         );
     }
 }

@@ -5,6 +5,7 @@ import com.insurance.insurance_policy_api.entity.InsurancePolicy;
 import com.insurance.insurance_policy_api.exception.PolicyValidationException;
 import com.insurance.insurance_policy_api.repository.InsurancePolicyRepository;
 import com.insurance.insurance_policy_api.repository.PolicyEventRepository;
+import com.insurance.insurance_policy_api.service.AiService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,11 +17,14 @@ public class CreatePolicyCommandHandler {
 
     private final InsurancePolicyRepository insurancePolicyRepository;
     private final PolicyEventRepository policyEventRepository;
+    private final AiService aiService;
 
     public CreatePolicyCommandHandler(InsurancePolicyRepository insurancePolicyRepository,
-                                      PolicyEventRepository policyEventRepository) {
+                                      PolicyEventRepository policyEventRepository,
+                                      AiService aiService) {
         this.insurancePolicyRepository = insurancePolicyRepository;
         this.policyEventRepository = policyEventRepository;
+        this.aiService = aiService;
     }
 
     @Transactional
@@ -43,6 +47,10 @@ public class CreatePolicyCommandHandler {
         insurancePolicy.setDeductible(command.deductible());
         insurancePolicy.setCoverageStartDate(command.coverageStartDate());
         insurancePolicy.setCoverageEndDate(command.coverageEndDate());
+
+        AiService.RiskResult risk = aiService.scoreRisk(command);
+        insurancePolicy.setRiskScore(risk.score());
+        insurancePolicy.setRiskReason(risk.reason());
 
         InsurancePolicy savedPolicy = insurancePolicyRepository.save(insurancePolicy);
 

@@ -1,6 +1,7 @@
 package com.insurance.insurance_policy_api.controller;
 
 import com.insurance.insurance_policy_api.dto.PolicyResponse;
+import com.insurance.insurance_policy_api.dto.PolicySummaryResponse;
 import com.insurance.insurance_policy_api.service.PolicyQueryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,5 +29,10 @@ public class PolicyQueryController {
     @GetMapping
     public ResponseEntity<List<PolicyResponse>> getAllPolicies() {
         return ResponseEntity.ok(policyQueryService.getAllPolicies());
+    }
+
+    @GetMapping("/{id}/summary")
+    public ResponseEntity<PolicySummaryResponse> getPolicySummary(@PathVariable Long id) {
+        return ResponseEntity.ok(policyQueryService.getPolicySummary(id));
     }
 }

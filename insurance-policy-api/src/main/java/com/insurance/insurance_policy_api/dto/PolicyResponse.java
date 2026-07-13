@@ -21,5 +21,7 @@ public record PolicyResponse(
         LocalDate coverageStartDate,
         LocalDate coverageEndDate,
         LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        LocalDateTime updatedAt,
+        String riskScore,
+        String riskReason
 ) {}

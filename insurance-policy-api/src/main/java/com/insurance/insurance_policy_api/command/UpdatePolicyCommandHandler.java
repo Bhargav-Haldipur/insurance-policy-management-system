@@ -6,22 +6,32 @@ import com.insurance.insurance_policy_api.exception.PolicyNotFoundException;
 import com.insurance.insurance_policy_api.exception.PolicyValidationException;
 import com.insurance.insurance_policy_api.repository.InsurancePolicyRepository;
 import com.insurance.insurance_policy_api.repository.PolicyEventRepository;
+import com.insurance.insurance_policy_api.service.AiService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Objects;
 
 @Service
 public class UpdatePolicyCommandHandler {
 
+    private static final Logger log = LoggerFactory.getLogger(UpdatePolicyCommandHandler.class);
+
     private final InsurancePolicyRepository insurancePolicyRepository;
     private final PolicyEventRepository policyEventRepository;
+    private final AiService aiService;
 
     public UpdatePolicyCommandHandler(InsurancePolicyRepository insurancePolicyRepository,
-                                      PolicyEventRepository policyEventRepository) {
+                                      PolicyEventRepository policyEventRepository,
+                                      AiService aiService) {
         this.insurancePolicyRepository = insurancePolicyRepository;
         this.policyEventRepository = policyEventRepository;
+        this.aiService = aiService;
     }
 
     @Transactional
@@ -34,6 +44,17 @@ public class UpdatePolicyCommandHandler {
 
         InsurancePolicy insurancePolicy = insurancePolicyRepository.findById(command.id())
                 .orElseThrow(() -> new PolicyNotFoundException(command.id()));
+
+        if (riskInputsChanged(insurancePolicy, command)) {
+            try {
+                AiService.RiskResult risk = aiService.scoreRisk(command);
+                insurancePolicy.setRiskScore(risk.score());
+                insurancePolicy.setRiskReason(risk.reason());
+            } catch (Exception e) {
+                log.warn("Risk re-scoring failed for policy {}; keeping existing score. Error: {}",
+                        command.id(), e.getMessage());
+            }
+        }
 
         insurancePolicy.setPolicyName(command.policyName());
         insurancePolicy.setStatus(command.status());
@@ -61,5 +82,20 @@ public class UpdatePolicyCommandHandler {
         }
 
         return updatedPolicy;
+    }
+
+    private boolean riskInputsChanged(InsurancePolicy existing, UpdatePolicyCommand command) {
+        return !Objects.equals(existing.getPolicyType(), command.policyType())
+                || !Objects.equals(existing.getCoverageStartDate(), command.coverageStartDate())
+                || !Objects.equals(existing.getCoverageEndDate(), command.coverageEndDate())
+                || compareBigDecimal(existing.getPremiumAmount(), command.premiumAmount()) != 0
+                || compareBigDecimal(existing.getCoverageAmount(), command.coverageAmount()) != 0
+                || compareBigDecimal(existing.getDeductible(), command.deductible()) != 0;
+    }
+
+    private int compareBigDecimal(BigDecimal a, BigDecimal b) {
+        if (a == null && b == null) return 0;
+        if (a == null || b == null) return 1;
+        return a.compareTo(b);
     }
 }

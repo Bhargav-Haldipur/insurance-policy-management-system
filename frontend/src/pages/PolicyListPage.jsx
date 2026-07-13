@@ -26,9 +26,20 @@ import dayjs from 'dayjs'
 import { getPolicies, deletePolicy, getApiErrorMessage } from '../services/policy_Service'
 import { formatCoverageDate, formatTimestamp } from '../utils/dateFormat'
 
-const TOTAL_COLS = 10
+const TOTAL_COLS = 12
 
 const EXPIRY_WARN_STATUSES = new Set(['ACTIVE', 'PENDING', 'SUSPENDED'])
+
+function riskChipColor(score) {
+  if (score === 'HIGH') return 'error'
+  if (score === 'LOW') return 'success'
+  return 'warning'
+}
+
+function formatAmountCompact(value) {
+  if (value == null) return '—'
+  return `₹${Number(value).toLocaleString('en-IN', { maximumFractionDigits: 0 })}`
+}
 
 function isExpiringSoon(coverageEndDate, status) {
   if (!coverageEndDate || !EXPIRY_WARN_STATUSES.has(status)) return false
@@ -101,7 +112,7 @@ function PolicyListPage() {
         {error && <Alert severity="error">{error}</Alert>}
 
         <TableContainer component={Paper}>
-          <Table aria-label="insurance policies table">
+          <Table size="small" aria-label="insurance policies table">
             <TableHead>
               <TableRow>
                 <TableCell>ID</TableCell>
@@ -111,8 +122,10 @@ function PolicyListPage() {
                 <TableCell>Status</TableCell>
                 <TableCell>Coverage Start</TableCell>
                 <TableCell>Coverage End</TableCell>
+                <TableCell>Premium</TableCell>
+                <TableCell>Coverage</TableCell>
+                <TableCell>Risk Score</TableCell>
                 <TableCell>Created At</TableCell>
-                <TableCell>Updated At</TableCell>
                 <TableCell align="right">Actions</TableCell>
               </TableRow>
             </TableHead>
@@ -153,11 +166,15 @@ function PolicyListPage() {
                         )}
                       </Stack>
                     </TableCell>
+                    <TableCell>{formatAmountCompact(policy.premiumAmount)}</TableCell>
+                    <TableCell>{formatAmountCompact(policy.coverageAmount)}</TableCell>
                     <TableCell>
-                      {formatTimestamp(policy.createdAt)}
+                      {policy.riskScore
+                        ? <Chip label={policy.riskScore} color={riskChipColor(policy.riskScore)} size="small" />
+                        : '—'}
                     </TableCell>
                     <TableCell>
-                      {formatTimestamp(policy.updatedAt)}
+                      {formatTimestamp(policy.createdAt)}
                     </TableCell>
 
                     <TableCell align="right">
