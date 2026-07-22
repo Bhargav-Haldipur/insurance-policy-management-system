@@ -40,6 +40,7 @@ npm run dev                      # Dev server with hot reload
 npm run build                    # Production build
 npm run preview                  # Preview production build
 npm run lint                     # ESLint check
+npm run test:e2e                 # Playwright E2E suite (see "E2E Testing" below)
 ```
 
 ### MCP Server
@@ -90,6 +91,22 @@ POST   /api/admin/trigger-expiry-check - Manually trigger the expiry-warning sch
 Five pages: `PolicyListPage`, `CreatePolicyPage`, `EditPolicyPage`, `ViewPolicyPage`, `PolicyEventsPage`. `PolicyListPage` shows an "Expiring Soon" MUI `Chip` next to `coverageEndDate` for ACTIVE/PENDING/SUSPENDED policies expiring within 31 days (pure client-side check via dayjs), and a coloured Risk Score `Chip` (green=LOW, orange=MEDIUM, red=HIGH). `ViewPolicyPage` includes an AI Risk Assessment section (chip + reason text) below the detail grid, shown only when `riskScore` is non-null. `PolicyEventsPage` shows sequential row numbers instead of raw MongoDB IDs and renders payloads as formatted key-value blocks. Shared utilities in `utils/dateFormat.js` handle date formatting (`DD MMM YYYY`) and dayjs-to-API-string conversion.
 
 The Vite dev server proxies `/api/*` to `http://localhost:8080` locally and `http://backend:8080` in Docker. The proxy target is controlled in `vite.config.js`.
+
+### E2E Testing (Playwright)
+
+`frontend/tests/` holds 43 Playwright specs (one file per scenario) implementing every scenario in
+`frontend/specs/policy-management-test-plan.md`, hand-written and verified by running them against the real app
+rather than fully agent-generated. Run via `npm run test:e2e` (or `npx playwright test`) from `frontend/`.
+
+**Prerequisite**: the dev stack must already be running (frontend `:5173`, backend `:8080`) — `playwright.config.ts`
+has no `webServer` block. Run `frontend/tests/seed.spec.ts` first (or let any spec's own idempotent seed step run)
+to ensure the 10 named sample policies most scenarios key off of exist.
+
+`frontend/.claude/agents/playwright-test-planner.md`, `-generator.md`, and `-healer.md` are based on Playwright's own
+official Claude Code agent templates for a plan → generate → heal testing workflow (built on Playwright's MCP
+tools), customized here with Insurance Policy Management System–specific context — not bespoke agents written from
+scratch for this repo. They're only needed to regenerate/extend the suite or auto-diagnose a failing test; running
+the suite itself doesn't require them.
 
 ## Configuration
 

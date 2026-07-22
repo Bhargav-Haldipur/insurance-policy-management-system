@@ -1,0 +1,24 @@
+- generic [ref=e4]:
+  - generic [ref=e5]:
+    - heading "Insurance Policies" [level=1] [ref=e6]
+    - button "Create Policy" [ref=e7] [cursor=pointer]
+  - table "insurance policies table" [ref=e9]:
+    - rowgroup [ref=e10]:
+      - row "ID Policy Name Type Holder Name Status Coverage Start Coverage End Premium Coverage Risk Score Created At Actions" [ref=e11]:
+        - columnheader "ID" [ref=e12]
+        - columnheader "Policy Name" [ref=e13]
+        - columnheader "Type" [ref=e14]
+        - columnheader "Holder Name" [ref=e15]
+        - columnheader "Status" [ref=e16]
+        - columnheader "Coverage Start" [ref=e17]
+        - columnheader "Coverage End" [ref=e18]
+        - columnheader "Premium" [ref=e19]
+        - columnheader "Coverage" [ref=e20]
+        - columnheader "Risk Score" [ref=e21]
+        - columnheader "Created At" [ref=e22]
+        - columnheader "Actions" [ref=e23]
+    - rowgroup [ref=e24]:
+      - row [ref=e25]:
+        - cell [ref=e26]:
+          - progressbar [ref=e27]:
+            - img [ref=e28]

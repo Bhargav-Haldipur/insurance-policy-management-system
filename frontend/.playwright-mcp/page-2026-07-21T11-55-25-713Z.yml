@@ -1,0 +1,17 @@
+- generic [ref=e4]:
+  - generic [ref=e5]:
+    - heading "Policy Event History" [level=4] [ref=e6]
+    - button "Back to Policies" [ref=e7] [cursor=pointer]
+  - paragraph [ref=e8]: "Policy ID: 1"
+  - table [ref=e10]:
+    - rowgroup [ref=e11]:
+      - row "# Event Type Timestamp Payload" [ref=e12]:
+        - columnheader "#" [ref=e13]
+        - columnheader "Event Type" [ref=e14]
+        - columnheader "Timestamp" [ref=e15]
+        - columnheader "Payload" [ref=e16]
+    - rowgroup [ref=e17]:
+      - row [ref=e18]:
+        - cell [ref=e19]:
+          - progressbar [ref=e20]:
+            - img [ref=e21]

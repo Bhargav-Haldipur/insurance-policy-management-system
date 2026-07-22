@@ -1,0 +1,112 @@
+- generic [ref=e1]:
+  - generic [ref=e5]:
+    - heading [level=1] [ref=e70]: Create Policy
+    - generic [ref=e8]:
+      - generic [ref=e68]:
+        - text: Policy Name
+        - generic [ref=e69]: "*"
+      - generic [ref=e9]:
+        - textbox [ref=e71]: Manual Timing Test Policy
+        - group:
+          - generic: Policy Name *
+    - generic [ref=e11]:
+      - generic [ref=e72]:
+        - text: Policy Type
+        - generic [ref=e73]: "*"
+      - generic [ref=e12]:
+        - combobox [expanded] [ref=e74] [cursor=pointer]
+        - textbox
+        - img
+        - group:
+          - generic: Policy Type *
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - text: Status
+        - generic [ref=e16]: "*"
+      - generic [ref=e17]:
+        - combobox [ref=e75] [cursor=pointer]: ACTIVE
+        - textbox: ACTIVE
+        - img
+        - group:
+          - generic: Status *
+    - generic [ref=e19]:
+      - generic:
+        - text: Holder Name
+        - generic: "*"
+      - generic [ref=e20]:
+        - textbox [ref=e76]
+        - group:
+          - generic: Holder Name *
+    - generic [ref=e22]:
+      - generic:
+        - text: Holder Email
+        - generic: "*"
+      - generic [ref=e23]:
+        - textbox [ref=e77]
+        - group:
+          - generic: Holder Email *
+    - generic [ref=e25]:
+      - generic: Holder Phone (optional)
+      - generic [ref=e26]:
+        - textbox [ref=e78]
+        - group:
+          - generic: Holder Phone (optional)
+    - generic [ref=e28]:
+      - generic:
+        - text: Premium Amount
+        - generic: "*"
+      - generic [ref=e29]:
+        - spinbutton [ref=e79]
+        - group:
+          - generic: Premium Amount *
+    - generic [ref=e31]:
+      - generic:
+        - text: Coverage Amount
+        - generic: "*"
+      - generic [ref=e32]:
+        - spinbutton [ref=e80]
+        - group:
+          - generic: Coverage Amount *
+    - generic [ref=e34]:
+      - generic: Deductible (optional)
+      - generic [ref=e35]:
+        - spinbutton [ref=e81]
+        - group:
+          - generic: Deductible (optional)
+    - generic [ref=e37]:
+      - generic:
+        - text: Coverage Start Date
+        - generic: "*"
+      - group [ref=e82]:
+        - generic [ref=e39]:
+          - spinbutton [ref=e83]: DD
+          - spinbutton [ref=e84]: MM
+          - spinbutton [ref=e85]: YYYY
+        - button [ref=e86] [cursor=pointer]:
+          - img [ref=e48]
+        - group:
+          - generic: Coverage Start Date *
+        - textbox [ref=e50]
+    - generic [ref=e51]:
+      - generic:
+        - text: Coverage End Date
+        - generic: "*"
+      - group [ref=e87]:
+        - generic [ref=e53]:
+          - spinbutton [ref=e88]: DD
+          - spinbutton [ref=e89]: MM
+          - spinbutton [ref=e90]: YYYY
+        - button [ref=e91] [cursor=pointer]:
+          - img [ref=e62]
+        - group:
+          - generic: Coverage End Date *
+        - textbox [ref=e64]
+    - generic [ref=e65]:
+      - button [ref=e92] [cursor=pointer]: Cancel
+      - button [ref=e93] [cursor=pointer]: Create
+  - listbox "Policy Type *" [ref=e96]:
+    - option "HEALTH" [active] [ref=e97] [cursor=pointer]: HEALTH
+    - option "AUTO" [ref=e98] [cursor=pointer]
+    - option "LIFE" [ref=e99] [cursor=pointer]
+    - option "HOME" [ref=e100] [cursor=pointer]
+    - option "PROPERTY" [ref=e101] [cursor=pointer]

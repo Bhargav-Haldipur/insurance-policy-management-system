@@ -6,6 +6,8 @@ import com.insurance.insurance_policy_api.exception.PolicyValidationException;
 import com.insurance.insurance_policy_api.repository.InsurancePolicyRepository;
 import com.insurance.insurance_policy_api.repository.PolicyEventRepository;
 import com.insurance.insurance_policy_api.service.AiService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +16,8 @@ import java.time.ZoneId;
 
 @Service
 public class CreatePolicyCommandHandler {
+
+    private static final Logger log = LoggerFactory.getLogger(CreatePolicyCommandHandler.class);
 
     private final InsurancePolicyRepository insurancePolicyRepository;
     private final PolicyEventRepository policyEventRepository;
@@ -48,7 +52,13 @@ public class CreatePolicyCommandHandler {
         insurancePolicy.setCoverageStartDate(command.coverageStartDate());
         insurancePolicy.setCoverageEndDate(command.coverageEndDate());
 
-        AiService.RiskResult risk = aiService.scoreRisk(command);
+        AiService.RiskResult risk;
+        try {
+            risk = aiService.scoreRisk(command);
+        } catch (Exception e) {
+            log.warn("Risk scoring failed for new policy; falling back to MEDIUM. Error: {}", e.getMessage());
+            risk = new AiService.RiskResult("MEDIUM", "Risk assessment unavailable");
+        }
         insurancePolicy.setRiskScore(risk.score());
         insurancePolicy.setRiskReason(risk.reason());
 

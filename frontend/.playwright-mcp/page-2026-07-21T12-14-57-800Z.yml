@@ -1,0 +1,280 @@
+- generic [ref=e139]:
+  - generic [ref=e140]:
+    - heading "Insurance Policies" [level=1] [ref=e141]
+    - button "Create Policy" [ref=e142] [cursor=pointer]
+  - table "insurance policies table" [ref=e144]:
+    - rowgroup [ref=e145]:
+      - row "ID Policy Name Type Holder Name Status Coverage Start Coverage End Premium Coverage Risk Score Created At Actions" [ref=e146]:
+        - columnheader "ID" [ref=e147]
+        - columnheader "Policy Name" [ref=e148]
+        - columnheader "Type" [ref=e149]
+        - columnheader "Holder Name" [ref=e150]
+        - columnheader "Status" [ref=e151]
+        - columnheader "Coverage Start" [ref=e152]
+        - columnheader "Coverage End" [ref=e153]
+        - columnheader "Premium" [ref=e154]
+        - columnheader "Coverage" [ref=e155]
+        - columnheader "Risk Score" [ref=e156]
+        - columnheader "Created At" [ref=e157]
+        - columnheader "Actions" [ref=e158]
+    - rowgroup [ref=e159]:
+      - row "59 John's Auto Policy AUTO John Doe ACTIVE 01 Jan 2026 01 Jan 2027 ₹1,200 ₹5,00,000 MEDIUM 21 Jul 2026, 05:37 PM View Edit Events Delete" [ref=e160]:
+        - cell "59" [ref=e161]
+        - cell "John's Auto Policy" [ref=e162]
+        - cell "AUTO" [ref=e163]
+        - cell "John Doe" [ref=e164]
+        - cell "ACTIVE" [ref=e165]
+        - cell "01 Jan 2026" [ref=e166]
+        - cell "01 Jan 2027" [ref=e167]:
+          - generic [ref=e169]: 01 Jan 2027
+        - cell "₹1,200" [ref=e170]
+        - cell "₹5,00,000" [ref=e171]
+        - cell "MEDIUM" [ref=e172]:
+          - generic [ref=e174]: MEDIUM
+        - cell "21 Jul 2026, 05:37 PM" [ref=e175]
+        - cell "View Edit Events Delete" [ref=e176]:
+          - generic [ref=e177]:
+            - button "View" [ref=e178] [cursor=pointer]
+            - button "Edit" [ref=e179] [cursor=pointer]
+            - button "Events" [ref=e180] [cursor=pointer]
+            - button "Delete" [ref=e181] [cursor=pointer]
+      - row "60 Anita's Health Plan HEALTH Anita Sharma ACTIVE 01 Feb 2026 01 Feb 2027 ₹3,200 ₹20,00,000 MEDIUM 21 Jul 2026, 05:37 PM View Edit Events Delete" [ref=e182]:
+        - cell "60" [ref=e183]
+        - cell "Anita's Health Plan" [ref=e184]
+        - cell "HEALTH" [ref=e185]
+        - cell "Anita Sharma" [ref=e186]
+        - cell "ACTIVE" [ref=e187]
+        - cell "01 Feb 2026" [ref=e188]
+        - cell "01 Feb 2027" [ref=e189]:
+          - generic [ref=e191]: 01 Feb 2027
+        - cell "₹3,200" [ref=e192]
+        - cell "₹20,00,000" [ref=e193]
+        - cell "MEDIUM" [ref=e194]:
+          - generic [ref=e196]: MEDIUM
+        - cell "21 Jul 2026, 05:37 PM" [ref=e197]
+        - cell "View Edit Events Delete" [ref=e198]:
+          - generic [ref=e199]:
+            - button "View" [ref=e200] [cursor=pointer]
+            - button "Edit" [ref=e201] [cursor=pointer]
+            - button "Events" [ref=e202] [cursor=pointer]
+            - button "Delete" [ref=e203] [cursor=pointer]
+      - row "61 Vikram's Life Cover LIFE Vikram Singh PENDING 15 Jan 2026 15 Jan 2056 ₹9,500 ₹2,50,00,000 MEDIUM 21 Jul 2026, 05:37 PM View Edit Events Delete" [ref=e204]:
+        - cell "61" [ref=e205]
+        - cell "Vikram's Life Cover" [ref=e206]
+        - cell "LIFE" [ref=e207]
+        - cell "Vikram Singh" [ref=e208]
+        - cell "PENDING" [ref=e209]
+        - cell "15 Jan 2026" [ref=e210]
+        - cell "15 Jan 2056" [ref=e211]:
+          - generic [ref=e213]: 15 Jan 2056
+        - cell "₹9,500" [ref=e214]
+        - cell "₹2,50,00,000" [ref=e215]
+        - cell "MEDIUM" [ref=e216]:
+          - generic [ref=e218]: MEDIUM
+        - cell "21 Jul 2026, 05:37 PM" [ref=e219]
+        - cell "View Edit Events Delete" [ref=e220]:
+          - generic [ref=e221]:
+            - button "View" [ref=e222] [cursor=pointer]
+            - button "Edit" [ref=e223] [cursor=pointer]
+            - button "Events" [ref=e224] [cursor=pointer]
+            - button "Delete" [ref=e225] [cursor=pointer]
+      - row "62 Priya's Home Shield HOME Priya Nair ACTIVE 01 Mar 2026 01 Mar 2027 ₹9,800 ₹80,00,000 MEDIUM 21 Jul 2026, 05:37 PM View Edit Events Delete" [ref=e226]:
+        - cell "62" [ref=e227]
+        - cell "Priya's Home Shield" [ref=e228]
+        - cell "HOME" [ref=e229]
+        - cell "Priya Nair" [ref=e230]
+        - cell "ACTIVE" [ref=e231]
+        - cell "01 Mar 2026" [ref=e232]
+        - cell "01 Mar 2027" [ref=e233]:
+          - generic [ref=e235]: 01 Mar 2027
+        - cell "₹9,800" [ref=e236]
+        - cell "₹80,00,000" [ref=e237]
+        - cell "MEDIUM" [ref=e238]:
+          - generic [ref=e240]: MEDIUM
+        - cell "21 Jul 2026, 05:37 PM" [ref=e241]
+        - cell "View Edit Events Delete" [ref=e242]:
+          - generic [ref=e243]:
+            - button "View" [ref=e244] [cursor=pointer]
+            - button "Edit" [ref=e245] [cursor=pointer]
+            - button "Events" [ref=e246] [cursor=pointer]
+            - button "Delete" [ref=e247] [cursor=pointer]
+      - row "63 Suresh's Property Guard PROPERTY Suresh Menon SUSPENDED 10 Jan 2026 10 Jan 2027 ₹14,000 ₹2,00,00,000 MEDIUM 21 Jul 2026, 05:37 PM View Edit Events Delete" [ref=e248]:
+        - cell "63" [ref=e249]
+        - cell "Suresh's Property Guard" [ref=e250]
+        - cell "PROPERTY" [ref=e251]
+        - cell "Suresh Menon" [ref=e252]
+        - cell "SUSPENDED" [ref=e253]
+        - cell "10 Jan 2026" [ref=e254]
+        - cell "10 Jan 2027" [ref=e255]:
+          - generic [ref=e257]: 10 Jan 2027
+        - cell "₹14,000" [ref=e258]
+        - cell "₹2,00,00,000" [ref=e259]
+        - cell "MEDIUM" [ref=e260]:
+          - generic [ref=e262]: MEDIUM
+        - cell "21 Jul 2026, 05:37 PM" [ref=e263]
+        - cell "View Edit Events Delete" [ref=e264]:
+          - generic [ref=e265]:
+            - button "View" [ref=e266] [cursor=pointer]
+            - button "Edit" [ref=e267] [cursor=pointer]
+            - button "Events" [ref=e268] [cursor=pointer]
+            - button "Delete" [ref=e269] [cursor=pointer]
+      - row "64 Deepa's Health Secure HEALTH Deepa Iyer ACTIVE 01 Apr 2026 01 Apr 2027 ₹4,100 ₹3,00,000 MEDIUM 21 Jul 2026, 05:37 PM View Edit Events Delete" [ref=e270]:
+        - cell "64" [ref=e271]
+        - cell "Deepa's Health Secure" [ref=e272]
+        - cell "HEALTH" [ref=e273]
+        - cell "Deepa Iyer" [ref=e274]
+        - cell "ACTIVE" [ref=e275]
+        - cell "01 Apr 2026" [ref=e276]
+        - cell "01 Apr 2027" [ref=e277]:
+          - generic [ref=e279]: 01 Apr 2027
+        - cell "₹4,100" [ref=e280]
+        - cell "₹3,00,000" [ref=e281]
+        - cell "MEDIUM" [ref=e282]:
+          - generic [ref=e284]: MEDIUM
+        - cell "21 Jul 2026, 05:37 PM" [ref=e285]
+        - cell "View Edit Events Delete" [ref=e286]:
+          - generic [ref=e287]:
+            - button "View" [ref=e288] [cursor=pointer]
+            - button "Edit" [ref=e289] [cursor=pointer]
+            - button "Events" [ref=e290] [cursor=pointer]
+            - button "Delete" [ref=e291] [cursor=pointer]
+      - row "65 Arjun's Auto Cover AUTO Arjun Reddy INACTIVE 20 Feb 2026 20 Feb 2027 ₹1,750 ₹1,000 MEDIUM 21 Jul 2026, 05:37 PM View Edit Events Delete" [ref=e292]:
+        - cell "65" [ref=e293]
+        - cell "Arjun's Auto Cover" [ref=e294]
+        - cell "AUTO" [ref=e295]
+        - cell "Arjun Reddy" [ref=e296]
+        - cell "INACTIVE" [ref=e297]
+        - cell "20 Feb 2026" [ref=e298]
+        - cell "20 Feb 2027" [ref=e299]:
+          - generic [ref=e301]: 20 Feb 2027
+        - cell "₹1,750" [ref=e302]
+        - cell "₹1,000" [ref=e303]
+        - cell "MEDIUM" [ref=e304]:
+          - generic [ref=e306]: MEDIUM
+        - cell "21 Jul 2026, 05:37 PM" [ref=e307]
+        - cell "View Edit Events Delete" [ref=e308]:
+          - generic [ref=e309]:
+            - button "View" [ref=e310] [cursor=pointer]
+            - button "Edit" [ref=e311] [cursor=pointer]
+            - button "Events" [ref=e312] [cursor=pointer]
+            - button "Delete" [ref=e313] [cursor=pointer]
+      - row "66 Kavita's Home Assure HOME Kavita Joshi EXPIRED 01 May 2025 01 May 2026 ₹13,300 ₹15,00,000 MEDIUM 21 Jul 2026, 05:37 PM View Edit Events Delete" [ref=e314]:
+        - cell "66" [ref=e315]
+        - cell "Kavita's Home Assure" [ref=e316]
+        - cell "HOME" [ref=e317]
+        - cell "Kavita Joshi" [ref=e318]
+        - cell "EXPIRED" [ref=e319]
+        - cell "01 May 2025" [ref=e320]
+        - cell "01 May 2026" [ref=e321]:
+          - generic [ref=e323]: 01 May 2026
+        - cell "₹13,300" [ref=e324]
+        - cell "₹15,00,000" [ref=e325]
+        - cell "MEDIUM" [ref=e326]:
+          - generic [ref=e328]: MEDIUM
+        - cell "21 Jul 2026, 05:37 PM" [ref=e329]
+        - cell "View Edit Events Delete" [ref=e330]:
+          - generic [ref=e331]:
+            - button "View" [ref=e332] [cursor=pointer]
+            - button "Edit" [ref=e333] [cursor=pointer]
+            - button "Events" [ref=e334] [cursor=pointer]
+            - button "Delete" [ref=e335] [cursor=pointer]
+      - row "67 Manoj's Life Secure LIFE Manoj Pillai ACTIVE 25 Jan 2026 25 Jan 2041 ₹11,200 ₹50,00,000 MEDIUM 21 Jul 2026, 05:37 PM View Edit Events Delete" [ref=e336]:
+        - cell "67" [ref=e337]
+        - cell "Manoj's Life Secure" [ref=e338]
+        - cell "LIFE" [ref=e339]
+        - cell "Manoj Pillai" [ref=e340]
+        - cell "ACTIVE" [ref=e341]
+        - cell "25 Jan 2026" [ref=e342]
+        - cell "25 Jan 2041" [ref=e343]:
+          - generic [ref=e345]: 25 Jan 2041
+        - cell "₹11,200" [ref=e346]
+        - cell "₹50,00,000" [ref=e347]
+        - cell "MEDIUM" [ref=e348]:
+          - generic [ref=e350]: MEDIUM
+        - cell "21 Jul 2026, 05:37 PM" [ref=e351]
+        - cell "View Edit Events Delete" [ref=e352]:
+          - generic [ref=e353]:
+            - button "View" [ref=e354] [cursor=pointer]
+            - button "Edit" [ref=e355] [cursor=pointer]
+            - button "Events" [ref=e356] [cursor=pointer]
+            - button "Delete" [ref=e357] [cursor=pointer]
+      - row "68 Sneha's Property Cover PROPERTY Sneha Rao CANCELLED 01 Jun 2025 01 Jun 2026 ₹9,900 ₹30,00,000 MEDIUM 21 Jul 2026, 05:37 PM View Edit Events Delete" [ref=e358]:
+        - cell "68" [ref=e359]
+        - cell "Sneha's Property Cover" [ref=e360]
+        - cell "PROPERTY" [ref=e361]
+        - cell "Sneha Rao" [ref=e362]
+        - cell "CANCELLED" [ref=e363]
+        - cell "01 Jun 2025" [ref=e364]
+        - cell "01 Jun 2026" [ref=e365]:
+          - generic [ref=e367]: 01 Jun 2026
+        - cell "₹9,900" [ref=e368]
+        - cell "₹30,00,000" [ref=e369]
+        - cell "MEDIUM" [ref=e370]:
+          - generic [ref=e372]: MEDIUM
+        - cell "21 Jul 2026, 05:37 PM" [ref=e373]
+        - cell "View Edit Events Delete" [ref=e374]:
+          - generic [ref=e375]:
+            - button "View" [ref=e376] [cursor=pointer]
+            - button "Edit" [ref=e377] [cursor=pointer]
+            - button "Events" [ref=e378] [cursor=pointer]
+            - button "Delete" [ref=e379] [cursor=pointer]
+      - row "74 Delete-Confirm Test Policy AUTO QA Tester ACTIVE 01 Jan 2026 01 Jan 2027 ₹1,000 ₹1,00,000 MEDIUM 21 Jul 2026, 05:40 PM View Edit Events Delete" [ref=e380]:
+        - cell "74" [ref=e381]
+        - cell "Delete-Confirm Test Policy" [ref=e382]
+        - cell "AUTO" [ref=e383]
+        - cell "QA Tester" [ref=e384]
+        - cell "ACTIVE" [ref=e385]
+        - cell "01 Jan 2026" [ref=e386]
+        - cell "01 Jan 2027" [ref=e387]:
+          - generic [ref=e389]: 01 Jan 2027
+        - cell "₹1,000" [ref=e390]
+        - cell "₹1,00,000" [ref=e391]
+        - cell "MEDIUM" [ref=e392]:
+          - generic [ref=e394]: MEDIUM
+        - cell "21 Jul 2026, 05:40 PM" [ref=e395]
+        - cell "View Edit Events Delete" [ref=e396]:
+          - generic [ref=e397]:
+            - button "View" [ref=e398] [cursor=pointer]
+            - button "Edit" [ref=e399] [cursor=pointer]
+            - button "Events" [ref=e400] [cursor=pointer]
+            - button "Delete" [ref=e401] [cursor=pointer]
+      - row "75 Delete-Confirm Test Policy AUTO QA Tester ACTIVE 01 Jan 2026 01 Jan 2027 ₹1,000 ₹1,00,000 MEDIUM 21 Jul 2026, 05:41 PM View Edit Events Delete" [ref=e402]:
+        - cell "75" [ref=e403]
+        - cell "Delete-Confirm Test Policy" [ref=e404]
+        - cell "AUTO" [ref=e405]
+        - cell "QA Tester" [ref=e406]
+        - cell "ACTIVE" [ref=e407]
+        - cell "01 Jan 2026" [ref=e408]
+        - cell "01 Jan 2027" [ref=e409]:
+          - generic [ref=e411]: 01 Jan 2027
+        - cell "₹1,000" [ref=e412]
+        - cell "₹1,00,000" [ref=e413]
+        - cell "MEDIUM" [ref=e414]:
+          - generic [ref=e416]: MEDIUM
+        - cell "21 Jul 2026, 05:41 PM" [ref=e417]
+        - cell "View Edit Events Delete" [ref=e418]:
+          - generic [ref=e419]:
+            - button "View" [ref=e420] [cursor=pointer]
+            - button "Edit" [ref=e421] [cursor=pointer]
+            - button "Events" [ref=e422] [cursor=pointer]
+            - button "Delete" [ref=e423] [cursor=pointer]
+      - row "77 Manual Timing Test Policy AUTO QA Tester ACTIVE 01 Jan 2026 01 Jan 2027 ₹1,000 ₹1,00,000 MEDIUM 21 Jul 2026, 05:44 PM View Edit Events Delete" [ref=e424]:
+        - cell "77" [ref=e425]
+        - cell "Manual Timing Test Policy" [ref=e426]
+        - cell "AUTO" [ref=e427]
+        - cell "QA Tester" [ref=e428]
+        - cell "ACTIVE" [ref=e429]
+        - cell "01 Jan 2026" [ref=e430]
+        - cell "01 Jan 2027" [ref=e431]:
+          - generic [ref=e433]: 01 Jan 2027
+        - cell "₹1,000" [ref=e434]
+        - cell "₹1,00,000" [ref=e435]
+        - cell "MEDIUM" [ref=e436]:
+          - generic [ref=e438]: MEDIUM
+        - cell "21 Jul 2026, 05:44 PM" [ref=e439]
+        - cell "View Edit Events Delete" [ref=e440]:
+          - generic [ref=e441]:
+            - button "View" [ref=e442] [cursor=pointer]
+            - button "Edit" [ref=e443] [cursor=pointer]
+            - button "Events" [ref=e444] [cursor=pointer]
+            - button "Delete" [ref=e445] [cursor=pointer]

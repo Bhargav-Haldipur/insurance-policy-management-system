@@ -1,0 +1,105 @@
+- generic [ref=e5]:
+  - heading "Edit Policy" [level=1] [ref=e7]
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - text: Policy Name
+      - generic [ref=e10]: "*"
+    - generic [ref=e11]:
+      - textbox "Policy Name" [ref=e12]: John's Auto Policy
+      - group:
+        - generic: Policy Name *
+  - generic [ref=e13]:
+    - generic [ref=e14]:
+      - text: Policy Type
+      - generic [ref=e15]: "*"
+    - generic [ref=e16]:
+      - combobox "Policy Type" [ref=e17] [cursor=pointer]: AUTO
+      - textbox: AUTO
+      - img
+      - group:
+        - generic: Policy Type *
+  - generic [ref=e18]:
+    - generic [ref=e19]:
+      - text: Status
+      - generic [ref=e20]: "*"
+    - generic [ref=e21]:
+      - combobox "Status" [ref=e22] [cursor=pointer]: ACTIVE
+      - textbox: ACTIVE
+      - img
+      - group:
+        - generic: Status *
+  - generic [ref=e23]:
+    - generic [ref=e24]:
+      - text: Holder Name
+      - generic [ref=e25]: "*"
+    - generic [ref=e26]:
+      - textbox "Holder Name" [ref=e27]: John Doe
+      - group:
+        - generic: Holder Name *
+  - generic [ref=e28]:
+    - generic [ref=e29]:
+      - text: Holder Email
+      - generic [ref=e30]: "*"
+    - generic [ref=e31]:
+      - textbox "Holder Email" [ref=e32]: john.doe@example.com
+      - group:
+        - generic: Holder Email *
+  - generic [ref=e33]:
+    - generic [ref=e34]: Holder Phone (optional)
+    - generic [ref=e35]:
+      - textbox "Holder Phone (optional)" [ref=e36]: +91-9876543210
+      - group:
+        - generic: Holder Phone (optional)
+  - generic [ref=e37]:
+    - generic [ref=e38]:
+      - text: Premium Amount
+      - generic [ref=e39]: "*"
+    - generic [ref=e40]:
+      - spinbutton "Premium Amount" [ref=e41]: "5000"
+      - group:
+        - generic: Premium Amount *
+  - generic [ref=e42]:
+    - generic [ref=e43]:
+      - text: Coverage Amount
+      - generic [ref=e44]: "*"
+    - generic [ref=e45]:
+      - spinbutton "Coverage Amount" [ref=e46]: "20000000"
+      - group:
+        - generic: Coverage Amount *
+  - generic [ref=e47]:
+    - generic: Deductible (optional)
+    - generic [ref=e48]:
+      - spinbutton "Deductible (optional)" [ref=e49]
+      - group:
+        - generic: Deductible (optional)
+  - generic [ref=e50]:
+    - generic [ref=e51]:
+      - text: Coverage Start Date
+      - generic [ref=e52]: "*"
+    - group "Coverage Start Date" [ref=e53]:
+      - generic [ref=e54]:
+        - spinbutton "Day" [ref=e56]: "01"
+        - spinbutton "Month" [ref=e58]: "01"
+        - spinbutton "Year" [ref=e60]: "2026"
+      - button "Choose date, selected date is Jan 1, 2026" [ref=e62] [cursor=pointer]:
+        - img [ref=e63]
+      - group:
+        - generic: Coverage Start Date *
+      - textbox [ref=e65]: 01 01 2026
+  - generic [ref=e66]:
+    - generic [ref=e67]:
+      - text: Coverage End Date
+      - generic [ref=e68]: "*"
+    - group "Coverage End Date" [ref=e69]:
+      - generic [ref=e70]:
+        - spinbutton "Day" [ref=e72]: "01"
+        - spinbutton "Month" [ref=e74]: "01"
+        - spinbutton "Year" [ref=e76]: "2030"
+      - button "Choose date, selected date is Jan 1, 2030" [ref=e78] [cursor=pointer]:
+        - img [ref=e79]
+      - group:
+        - generic: Coverage End Date *
+      - textbox [ref=e81]: 01 01 2030
+  - generic [ref=e82]:
+    - button "Cancel" [ref=e83] [cursor=pointer]
+    - button "Save" [ref=e84] [cursor=pointer]

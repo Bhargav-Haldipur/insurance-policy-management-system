@@ -1,0 +1,8 @@
+- generic [ref=e4]:
+  - heading "Policy Details" [level=1] [ref=e6]
+  - alert [ref=e7]:
+    - img [ref=e9]
+    - generic [ref=e11]: Unable to load policy.
+  - generic [ref=e14]:
+    - button "Back" [ref=e15] [cursor=pointer]
+    - button "Edit" [ref=e16] [cursor=pointer]

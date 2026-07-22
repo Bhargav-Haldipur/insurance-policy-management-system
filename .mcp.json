@@ -4,6 +4,10 @@
       "command": "python",
       "args": ["/path/to/insurance-mcp/server.py"],
       "description": "Tools to manage insurance policies via the Spring Boot REST API"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
     }
   }
 }
